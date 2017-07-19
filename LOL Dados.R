@@ -194,20 +194,16 @@ dadosPartidas <- function(df,user_key){
 
 #dadosPartidas(dfPartidas$id_partida, 'RGAPI-bbc998cb-aca4-4366-bfb2-c21eaa91f781')
 
-#----------------------------------------------------------------#
+#------------------------cria arquivos-----------------------------#
 
 
-readr::write_delim(dfInvoc, path ='F:/R Projects/analise_lol/dfInvoc.csv', delim = ';')
+#readr::write_delim(dfInvoc, path ='F:/R Projects/analise_lol/dfInvoc.csv', delim = ';')
 
-readr::write_delim(dfPartidas, path ='F:/R Projects/analise_lol/dfPartidas.csv', delim = ';')
+#readr::write_delim(dfPartidas, path ='F:/R Projects/analise_lol/dfPartidas.csv', delim = ';')
 
-readr::write_delim(geralPartidas, path ='F:/R Projects/analise_lol/geralPartidas.csv', delim = ';')
+#readr::write_delim(geralPartidas, path ='F:/R Projects/analise_lol/geralPartidas.csv', delim = ';')
 
-readr::write_delim(participantes, path ='F:/R Projects/analise_lol/participantes.csv', delim = ';')
-
-seq_along(dfPartidas$id_partida)
-
-rm(list = 'i')
+#readr::write_delim(participantes, path ='F:/R Projects/analise_lol/participantes.csv', delim = ';')
 
 
 
@@ -227,11 +223,4 @@ rm(list = 'i')
 #top <- participantes %>%
 #  filter(lane == 'TOP')
 
-#-----------------------------------------------------------#
-teste <- geralPartidas %>%
-  inner_join(participantes, by = c('gameId' = 'gameId', 'teamId' = 'teamId'))
 
-dfDadosPart <- tibble()
-
-
-rm(list = 'adc')
