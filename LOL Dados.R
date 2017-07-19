@@ -91,6 +91,9 @@ dadosPartidas <- function(df,user_key){
   key = '?api_key='
   
   geralPartidas <- tibble()
+  
+  participantes <- tibble()
+  
   try(for (i in seq_along(df)){
     
     id = df[i]
@@ -148,8 +151,6 @@ dadosPartidas <- function(df,user_key){
     a <- bind_rows(geralPartidaTime_1, geralPartidaTime_2)
     
     geralPartidas <- bind_rows(geralPartidas, a)
-    
-    participantes <- tibble()
     
     for (i in seq_along(listaDadosPart$participants)){
       a <- tibble(gameId = listaDadosPart$gameId,
