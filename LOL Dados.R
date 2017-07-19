@@ -10,7 +10,6 @@ library(dplyr)
 library(lubridate)
 
 
-
 #fun??o lista de invocadores
 
 invocadores <- function(invocador){
