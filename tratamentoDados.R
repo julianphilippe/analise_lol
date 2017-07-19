@@ -9,9 +9,9 @@ library(lubridate)
 library(readr)
 
 
-dfPartidas <- readr::read_delim('dfPartidas.csv', delim = ';')
-geralPartidas <- readr::read_delim('geralPartidas.csv', delim = ';')
-participantes <- readr::read_delim('participantes.csv', delim = ';')
+#dfPartidas <- readr::read_delim('dfPartidas.csv', delim = ';')
+#geralPartidas <- readr::read_delim('geralPartidas.csv', delim = ';')
+#participantes <- readr::read_delim('participantes.csv', delim = ';')
 
 
 names(participantes)
@@ -52,4 +52,6 @@ top <- participantes %>%
          magicDamageDealt, physicalDamageDealt, trueDamageDealt, longestTimeSpentLiving, totalTimeCrowdControlDealt, 
          visionScore) 
 
+partidasFinal <- geralPartidas %>%
+  inner_join(adc, by = c('gameId' = 'gameId', 'teamId' = 'teamId'))
 

@@ -119,7 +119,7 @@ dadosPartidas <- function(df,user_key){
                                  firstDragon = listaDadosPart$teams[[1]]$firstDragon,
                                  firstRiftHerald = listaDadosPart$teams[[1]]$firstRiftHerald,
                                  towerKills = listaDadosPart$teams[[1]]$towerKills,
-                                 inhibitorKills = listaDadosPart$teams[[1]]$inhibitorKills,
+                                 inhibitorKills = listaDadosPart$teams[[1]]$inhibitorKillsTeam,
                                  baronKills = listaDadosPart$teams[[1]]$baronKills,
                                  dragonKills = listaDadosPart$teams[[1]]$dragonKills,
                                  vilemawKills = listaDadosPart$teams[[1]]$vilemawKills,
@@ -139,7 +139,7 @@ dadosPartidas <- function(df,user_key){
                                  firstDragon = listaDadosPart$teams[[2]]$firstDragon,
                                  firstRiftHerald = listaDadosPart$teams[[2]]$firstRiftHerald,
                                  towerKills = listaDadosPart$teams[[2]]$towerKills,
-                                 inhibitorKills = listaDadosPart$teams[[2]]$inhibitorKills,
+                                 inhibitorKills = listaDadosPart$teams[[2]]$inhibitorKillsTeam,
                                  baronKills = listaDadosPart$teams[[2]]$baronKills,
                                  dragonKills = listaDadosPart$teams[[2]]$dragonKills,
                                  vilemawKills = listaDadosPart$teams[[2]]$vilemawKills,
@@ -204,23 +204,4 @@ dadosPartidas <- function(df,user_key){
 #readr::write_delim(geralPartidas, path ='F:/R Projects/analise_lol/geralPartidas.csv', delim = ';')
 
 #readr::write_delim(participantes, path ='F:/R Projects/analise_lol/participantes.csv', delim = ';')
-
-
-
-
-#adc <- participantes %>%
-#  filter(role == 'DUO_CARRY')
-
-#sup <- participantes %>%
-#  filter(role == 'DUO_SUPPORT')
-
-#jungle <- participantes %>%
-#  filter(lane == 'JUNGLE')
-
-#mid <- participantes %>%
-#  filter(lane == 'MIDDLE')
-
-#top <- participantes %>%
-#  filter(lane == 'TOP')
-
 
