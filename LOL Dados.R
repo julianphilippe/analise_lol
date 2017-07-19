@@ -8,21 +8,22 @@ library(rvest)
 library(rjson)
 library(dplyr)
 library(lubridate)
+library(readr)
 
 
 #fun??o lista de invocadores
 
-invocadores <- function(invocador){
+invocadores <- function(invocador,user_key){
   
   invocador = paste0(invocador)
   
-  key = '?api_key=RGAPI-0467b4d0-6f12-4cf0-a051-2287ef392b53'
+  key = '?api_key='
   
   urlInvoc = 'https://br.api.riotgames.com/api/lol/BR/v1.4/summoner/by-name/'
   
   #invoc = 'iceddeath,kuririncareca'
   
-  listaInvoc <-rjson::fromJSON(paste0(readLines(paste0(urlInvoc,invocador,key))))
+  listaInvoc <-rjson::fromJSON(paste0(readLines(paste0(urlInvoc,invocador,key,user_key))))
   
   #print(paste0(urlInvoc,invoc,key))
   
@@ -36,7 +37,7 @@ invocadores <- function(invocador){
 }
 
 
-#invocadores('iceddeath,kuririncareca,pansadogueto,rodil,itsshowtime,xeternox,zEmerson,fullkira,fenixytb')
+#invocadores('iceddeath,kuririncareca,pansadogueto,rodil,itsshowtime,xeternox,zEmerson,fullkira,fenixytb', 'RGAPI-bbc998cb-aca4-4366-bfb2-c21eaa91f781')
 
 
 #------------------------------------------------------------------------------------#
@@ -45,11 +46,11 @@ invocadores <- function(invocador){
 
 #fun??o lista de partidas
 
-partidas <- function(df){
+partidas <- function(df,user_key){
   
   urlPartidas = 'https://br.api.riotgames.com/api/lol/BR/v2.2/matchlist/by-summoner/'
   
-  key = '?seasons=PRESEASON2016&seasons=SEASON2016&seasons=PRESEASON2017&seasons=SEASON2017&api_key=RGAPI-0467b4d0-6f12-4cf0-a051-2287ef392b53'
+  key = '?seasons=PRESEASON2016&seasons=SEASON2016&seasons=PRESEASON2017&seasons=SEASON2017&api_key='
   
   dfPartidas <- tibble()
   
@@ -59,7 +60,7 @@ partidas <- function(df){
     
     idInvoc = id
     
-    listaPartidas <- rjson::fromJSON(paste0(readLines(paste0(urlPartidas,idInvoc,key))))
+    listaPartidas <- rjson::fromJSON(paste0(readLines(paste0(urlPartidas,idInvoc,key,user_key))))
     
     print(id)
     
@@ -74,26 +75,23 @@ partidas <- function(df){
 }
 
 
-#partidas(dfInvoc$id)
-
-dfInvoc[2]
+#partidas(dfInvoc$id, 'RGAPI-bbc998cb-aca4-4366-bfb2-c21eaa91f781')
 
 #------------------------------------------------------------------------------------#
 
 #partidas das ?ltimas duas temporadas
 
 
-dadosPartidas <- function(df){
+dadosPartidas <- function(df,user_key){
   
   urlPartida = 'https://br1.api.riotgames.com/lol/match/v3/matches/'
   
   #idPartida = '1128639786'
   
-  key = '?api_key=RGAPI-0467b4d0-6f12-4cf0-a051-2287ef392b53'
+  key = '?api_key='
   
   geralPartidas <- tibble()
-  
-  for (i in seq_along(df)){
+  try(for (i in seq_along(df)){
     
     id = df[i]
     
@@ -101,7 +99,7 @@ dadosPartidas <- function(df){
     
     print(i)
     
-    listaDadosPart <- rjson::fromJSON(paste0(readLines(paste0(urlPartida,idPartida,key))))
+    listaDadosPart <- rjson::fromJSON(paste0(readLines(paste0(urlPartida,idPartida,key,user_key))))
     
     Sys.sleep(2)
     
@@ -187,15 +185,25 @@ dadosPartidas <- function(df){
     
   }
   
+  )
+  
   assign('geralPartidas', geralPartidas, envir=.GlobalEnv)
   assign('participantes', participantes, envir=.GlobalEnv)
   
-  
 }
 
-#dadosPartidas(dfPartidas$id_partida)
+#dadosPartidas(dfPartidas$id_partida, 'RGAPI-bbc998cb-aca4-4366-bfb2-c21eaa91f781')
 
-#----------------------Status Participantes-------------------------#
+#----------------------------------------------------------------#
+
+
+readr::write_delim(dfInvoc, path ='F:/R Projects/analise_lol/dfInvoc.csv', delim = ';')
+
+readr::write_delim(dfPartidas, path ='F:/R Projects/analise_lol/dfPartidas.csv', delim = ';')
+
+readr::write_delim(geralPartidas, path ='F:/R Projects/analise_lol/geralPartidas.csv', delim = ';')
+
+readr::write_delim(participantes, path ='F:/R Projects/analise_lol/participantes.csv', delim = ';')
 
 seq_along(dfPartidas$id_partida)
 
