@@ -123,13 +123,17 @@ rm(list = c('nomes','nome_top','nome_adc','nome_mid','nome_jg','nome_sup'))
 
 
 partidasFinal <- geralPartidas %>%
-  left_join(adc, by = c('gameId' = 'gameId', 'teamId' = 'teamId'))
+  left_join(adc, by = c('gameId' = 'gameId', 'teamId' = 'teamId'))  %>%
+  left_join(sup, by = c('gameId' = 'gameId', 'teamId' = 'teamId')) %>%
+  left_join(mid, by = c('gameId' = 'gameId', 'teamId' = 'teamId')) %>%
+  left_join(jungle, by = c('gameId' = 'gameId', 'teamId' = 'teamId')) %>%
+  left_join(top, by = c('gameId' = 'gameId', 'teamId' = 'teamId'))
 
 
+partidasFinal <- unique(partidasFinal)
 
 
-
-
+#readr::write_delim(partidasFinal, path ='C:/Users/julian.mussumeci/Desktop/partidasFinal.csv', delim = ';')
 
 
 
