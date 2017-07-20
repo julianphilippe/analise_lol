@@ -52,6 +52,7 @@ top <- participantes %>%
          magicDamageDealt, physicalDamageDealt, trueDamageDealt, longestTimeSpentLiving, totalTimeCrowdControlDealt, 
          visionScore) 
 
+
 partidasFinal <- geralPartidas %>%
-  inner_join(adc, by = c('gameId' = 'gameId', 'teamId' = 'teamId'))
+  left_join(adc, by = c('gameId' = 'gameId', 'teamId' = 'teamId'))
 

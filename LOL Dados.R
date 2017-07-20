@@ -104,7 +104,7 @@ dadosPartidas <- function(df,user_key){
     
     listaDadosPart <- rjson::fromJSON(paste0(readLines(paste0(urlPartida,idPartida,key,user_key))))
     
-    Sys.sleep(1)
+    Sys.sleep(1.5)
     
     
     #----------------------Status Partida-------------------------#
@@ -195,7 +195,7 @@ dadosPartidas <- function(df,user_key){
 
 
 
-#dadosPartidas(dfPartidas$id_partida, 'RGAPI-c1d25242-321c-47ba-92e5-b863e17fcdd4')
+#dadosPartidas(dfPartidas$id_partida, 'RGAPI-8a679b12-ea45-409f-b270-f3041a94d8d9')
 
 #------------------------cria arquivos-----------------------------#
 
