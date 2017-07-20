@@ -14,6 +14,12 @@ library(readr)
 #participantes <- readr::read_delim('participantes.csv', delim = ';')
 
 
+#------------validando tabela Participantes-------------#
+
+erros <- participantes %>%
+  group_by(gameId,teamId) %>%
+  summarise(n = n()) %>%
+  filter(n > 5)
 
 #----------------------separa dados dos participantes por times---------------------#
 
