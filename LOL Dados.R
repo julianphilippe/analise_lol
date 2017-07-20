@@ -104,7 +104,7 @@ dadosPartidas <- function(df,user_key){
     
     listaDadosPart <- rjson::fromJSON(paste0(readLines(paste0(urlPartida,idPartida,key,user_key))))
     
-    Sys.sleep(2)
+    Sys.sleep(1)
     
     
     #----------------------Status Partida-------------------------#
@@ -122,7 +122,7 @@ dadosPartidas <- function(df,user_key){
                                  firstDragon = listaDadosPart$teams[[1]]$firstDragon,
                                  firstRiftHerald = listaDadosPart$teams[[1]]$firstRiftHerald,
                                  towerKills = listaDadosPart$teams[[1]]$towerKills,
-                                 inhibitorKills = listaDadosPart$teams[[1]]$inhibitorKillsTeam,
+                                 inhibitorKillsTeam = listaDadosPart$teams[[1]]$inhibitorKills,
                                  baronKills = listaDadosPart$teams[[1]]$baronKills,
                                  dragonKills = listaDadosPart$teams[[1]]$dragonKills,
                                  vilemawKills = listaDadosPart$teams[[1]]$vilemawKills,
@@ -142,7 +142,7 @@ dadosPartidas <- function(df,user_key){
                                  firstDragon = listaDadosPart$teams[[2]]$firstDragon,
                                  firstRiftHerald = listaDadosPart$teams[[2]]$firstRiftHerald,
                                  towerKills = listaDadosPart$teams[[2]]$towerKills,
-                                 inhibitorKills = listaDadosPart$teams[[2]]$inhibitorKillsTeam,
+                                 inhibitorKillsTeam = listaDadosPart$teams[[2]]$inhibitorKills,
                                  baronKills = listaDadosPart$teams[[2]]$baronKills,
                                  dragonKills = listaDadosPart$teams[[2]]$dragonKills,
                                  vilemawKills = listaDadosPart$teams[[2]]$vilemawKills,
@@ -193,7 +193,9 @@ dadosPartidas <- function(df,user_key){
   
 }
 
-#dadosPartidas(dfPartidas$id_partida, 'RGAPI-bbc998cb-aca4-4366-bfb2-c21eaa91f781')
+
+
+#dadosPartidas(dfPartidas$id_partida, 'RGAPI-c1d25242-321c-47ba-92e5-b863e17fcdd4')
 
 #------------------------cria arquivos-----------------------------#
 
