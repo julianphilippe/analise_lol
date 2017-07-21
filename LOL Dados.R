@@ -37,7 +37,7 @@ invocadores <- function(invocador,user_key){
 }
 
 
-#invocadores('iceddeath,kuririncareca,pansadogueto,rodil,itsshowtime,xeternox,zEmerson,fullkira,fenixytb', 'RGAPI-bbc998cb-aca4-4366-bfb2-c21eaa91f781')
+#invocadores('iceddeath,kuririncareca,pansadogueto,rodil,itsshowtime,xeternox,zEmerson,fullkira,fenixytb', 'RGAPI-d355623f-7049-48c8-8f92-afc89b260e80')
 
 
 #------------------------------------------------------------------------------------#
@@ -67,15 +67,19 @@ partidas <- function(df,user_key){
     for (i in seq_along(listaPartidas$matches)){
       a <- tibble(idJogador = id, id_partida = listaPartidas$matches[[i]]$matchId, campeao = listaPartidas$matches[[i]]$champion, lane = listaPartidas$matches[[i]]$lane, 
                   posicao = listaPartidas$matches[[i]]$role, temporada = listaPartidas$matches[[i]]$season)
+      
       dfPartidas <- bind_rows(dfPartidas, a)
+      
     }
     
   }
+  
   assign('dfPartidas', dfPartidas, envir=.GlobalEnv)
+  
 }
 
 
-#partidas(dfInvoc$id, 'RGAPI-bbc998cb-aca4-4366-bfb2-c21eaa91f781')
+#partidas(dfInvoc$id, 'RGAPI-d355623f-7049-48c8-8f92-afc89b260e80')
 
 #------------------------------------------------------------------------------------#
 
@@ -104,7 +108,7 @@ dadosPartidas <- function(df,user_key){
     
     listaDadosPart <- rjson::fromJSON(paste0(readLines(paste0(urlPartida,idPartida,key,user_key))))
     
-    Sys.sleep(1.5)
+    Sys.sleep(2.5)
     
     
     #----------------------Status Partida-------------------------#
@@ -195,7 +199,7 @@ dadosPartidas <- function(df,user_key){
 
 
 
-#dadosPartidas(dfPartidas$id_partida, 'RGAPI-8a679b12-ea45-409f-b270-f3041a94d8d9')
+#dadosPartidas(dfPartidas$id_partida, 'RGAPI-d355623f-7049-48c8-8f92-afc89b260e80')
 
 #------------------------cria arquivos-----------------------------#
 
