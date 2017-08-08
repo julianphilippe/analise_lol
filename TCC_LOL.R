@@ -2,7 +2,7 @@
 #rm(list = "players")
 
 
-install.packages('caret')
+#install.packages('caret')
 
 library(dplyr)
 library(lubridate)
@@ -558,17 +558,30 @@ confusionMatrix
 
 str(baseModelagem)
 
-glmteste <- glm(teamWinner ~ 1, data = baseTrain, family = binomial)
+glmteste <- glm(teamWinner ~ duration_10_20 + duration_20_30 + duration_30_40 + duration_40_more + teamBlue + teamPurple + firstBlood +
+                  firstTower + firstInhibitor + firstDragon + firstBaron + towerKills + inhibitorKills + dragonKills + baronKills + kills + deaths + assists + minionsKilled +
+                  neutralMinionsKilled + neutralMinionsKilledTeamJungle + neutralMinionsKilledEnemyJungle + goldEarned + goldSpent + wardsPlaced + wardsKilled + 
+                  visionWardsBoughtInGame  + doubleKills + tripleKills + quadraKills + pentaKills + killingSprees, data = baseTrain, family = binomial)
+
+summary(glmteste)
 
 
-treinamento <- step(glmteste, direction = "forward", trace = 1, scope = ~ duration_10_20 + duration_20_30 + duration_30_40 + duration_40_more + teamBlue + teamPurple + firstBlood +
-                       firstTower + firstInhibitor + firstDragon + firstBaron + towerKills + inhibitorKills + dragonKills + baronKills + kills + deaths + assists + minionsKilled +
-                       neutralMinionsKilled + neutralMinionsKilledTeamJungle + neutralMinionsKilledEnemyJungle + goldEarned + goldSpent + wardsPlaced + wardsKilled + 
-                       visionWardsBoughtInGame  + doubleKills + tripleKills + quadraKills + pentaKills + killingSprees)
+stepwise <- step(glmteste, direction = "both")
 
-summary(treinamento)
 
-baseTrain$pred <- predict(treinamento, type = "response")
+summary(stepwise)
+
+
+glmTreinamento <- glm(formula = teamWinner ~ duration_10_20 + duration_20_30 + 
+                       duration_30_40 + teamBlue + firstTower + firstBaron + towerKills + 
+                       dragonKills + baronKills + kills + deaths + minionsKilled + 
+                       goldEarned + goldSpent + wardsPlaced + wardsKilled + killingSprees, 
+                       family = binomial, data = baseTrain)
+
+
+summary(glmTreinamento)
+
+baseTrain$pred <- predict(glmTreinamento, type = "response")
 baseTrain$predFinal <- case_when(baseTrain$pred >0.5 ~ 1,
                                  baseTrain$pred <= 0.5 ~ 0)
 
@@ -689,24 +702,33 @@ table(baseTestQuali$teamWinner)
 
 str(baseModelagemQuali)
 
-glmtesteQuali <- glm(teamWinner ~ 1, data = baseTrainQuali, family = binomial)
+glmtesteQuali <- glm(teamWinner ~ duration_10_20 + duration_20_30 + duration_30_40 + duration_40_more + teamBlue + teamPurple + firstBlood +
+                       firstTower + firstInhibitor + firstDragon + firstBaron + towerKills + inhibitorKills + dragonKills + baronKills + kills + deaths + assists + minionsKilled +
+                       neutralMinionsKilled + neutralMinionsKilledTeamJungle + neutralMinionsKilledEnemyJungle + goldEarned + goldSpent + wardsPlaced + wardsKilled + 
+                       visionWardsBoughtInGame  + doubleKills + tripleKills + quadraKills + pentaKills + killingSprees, data = baseTrainQuali, family = binomial)
 
 
-treinamento <- step(glmtesteQuali, direction = "forward", trace = 1, scope = ~ duration_10_20 + duration_20_30 + duration_30_40 + duration_40_more + teamBlue + teamPurple + firstBlood +
-                      firstTower + firstInhibitor + firstDragon + firstBaron + towerKills + inhibitorKills + dragonKills + baronKills + kills + deaths + assists + minionsKilled +
-                      neutralMinionsKilled + neutralMinionsKilledTeamJungle + neutralMinionsKilledEnemyJungle + goldEarned + goldSpent + wardsPlaced + wardsKilled + 
-                      visionWardsBoughtInGame  + doubleKills + tripleKills + quadraKills + pentaKills + killingSprees)
+summary(glmtesteQuali)
 
 
-treinameto2 <- glm(formula = teamWinner ~ deaths + kills + towerKills + goldEarned + duration_20_30 + 
-                     assists + duration_40_more + teamBlue + firstTower + tripleKills + 
-                     doubleKills + goldSpent + wardsPlaced + inhibitorKills + 
-                     neutralMinionsKilledEnemyJungle, 
-                   data = baseTrainQuali, family = binomial)
+stepwise <- step(glmtesteQuali, direction = "both")
 
-summary(treinameto2)
 
-baseTrainQuali$pred <- predict(treinameto2, type = "response")
+summary(stepwise)
+
+
+glmTreinamentoQuali <- glm(formula = teamWinner ~  duration_20_30 + 
+                            duration_30_40 + teamBlue + firstTower + towerKills + 
+                            kills + deaths + assists + goldSpent + doubleKills + 
+                            tripleKills, 
+                          family = binomial, data = baseTrainQuali)
+
+
+summary(glmTreinamentoQuali)
+
+
+
+baseTrainQuali$pred <- predict(glmTreinamentoQuali, type = "response")
 baseTrainQuali$predFinal <- case_when(baseTrainQuali$pred >0.5 ~ 1,
                                       baseTrainQuali$pred <= 0.5 ~ 0)
 
